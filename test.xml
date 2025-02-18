@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+  <book id="1">
+    <title>The Catcher in the Rye</title>
+    <author>J.D. Salinger</author>
+    <genre>Fiction</genre>
+    <price>10.99</price>
+    <publish_date>1951-07-16</publish_date>
+    <description>A story about the events in the life of a young man, Holden Caulfield.</description>
+  </book>
+  <book id="2">
+    <title>1984</title>
+    <author>George Orwell</author>
+    <genre>Dystopian</genre>
+    <price>15.00</price>
+    <publish_date>1949-06-08</publish_date>
+    <description>A dystopian novel about a totalitarian regime and surveillance.</description>
+  </book>
+  <book id="3">
+    <title>To Kill a Mockingbird</title>
+    <author>Harper Lee</author>
+    <genre>Fiction</genre>
+    <price>12.99</price>
+    <publish_date>1960-07-11</publish_date>
+    <description>Explores racism and moral growth in the American South during the 1930s.</description>
+  </book>
+</library>
+9:55
+index.html:
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX and Data Fetching</title>
+    <script defer src="./script.js"></script>
+  </head>
+  <body>
+    <h1>AJAX and Data Fetching</h1>
+
+    <button id="myBtn">Fetch our test.html file</button>
+  </body>
+</html>
+9:55
+script.js:
+console.log('AJAX!');
+
+///////////////////////////////
+// The XMLHttpRequest Object
+///////////////////////////////
+
+// const request = new XMLHttpRequest();
+
+// console.log(request);
+
+// Example
+// request.open('GET', 'http://www.example.com/myFile.json', true);
+
+//if this were a POST request, and there is data you need to send to the server you need to set the request header to specify the type of data you're sending
+// only for when you send data with a request
+// request.setRequestHeader(
+//   "Content-Type",
+//   "application/json"
+// );
+
+// request.send();
+
+/// Simple XHR Requst
+let request;
+
+document.getElementById('myBtn').addEventListener('click', testRequest);
+
+function testRequest() {
+  request = new XMLHttpRequest();
+
+  if (!request) {
+    alert('Failed to create an XMLHttpRequest Object.');
+    return false;
+  }
+
+  request.onreadystatechange = alertResponse;
+  request.open('GET', 'test.html');
+  request.send();
+}
+
+function alertResponse() {
+  // console.log(request.readyState);
+  if (request.readyState === XMLHttpRequest.DONE) {
+    if (request.status === 200) {
+      alert(request.responseText);
+    } else {
+      alert(
+        'The request returned a status other than 200 OK: ' + request.status
+      );
+    }
+  }
+}
