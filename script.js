@@ -39,16 +39,28 @@ function testRequest() {
 }
 
 function alertResponse() {
-  // console.log(request.readyState);
   if (request.readyState === XMLHttpRequest.DONE) {
     if (request.status === 200) {
       alert(request.responseText);
     } else {
-      alert(
-        'The request returned a status other than 200 OK: ' + request.status
-      );
+      handleError(request.status);
     }
   }
+}
+
+function handleError(status) {
+  let errorMessage = 'An error occurred: ';
+  switch (status) {
+    case 404:
+      errorMessage += 'File not found (404).';
+      break;
+    case 500:
+      errorMessage += 'Server error (500).';
+      break;
+    default:
+      errorMessage += `Unexpected status: ${status}.`;
+  }
+  alert(errorMessage);
 }
 
 async function logJSONData() {
