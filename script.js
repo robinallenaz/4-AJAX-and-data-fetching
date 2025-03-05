@@ -33,54 +33,22 @@ let request;
 // Add an event listener to a button with id 'myBtn'
 document.getElementById('myBtn').addEventListener('click', testRequest);
 
-// Function to test the XMLHttpRequest
+// Refactored testRequest function using Fetch API
 function testRequest() {
-  // Create a new XMLHttpRequest object
-  request = new XMLHttpRequest();
-
-  // Check if the request object was created successfully
-  if (!request) {
-    alert('Failed to create an XMLHttpRequest Object.');
-    return false;
-  }
-
-  // Set the function to be called when the state of the request changes
-  request.onreadystatechange = alertResponse;
-  // Open a GET request to 'test.html'
-  request.open('GET', 'test.html');
-  // Send the request
-  request.send();
-}
-
-// Function to handle the response from the server
-function alertResponse() {
-  // Check if the request is complete
-  if (request.readyState === XMLHttpRequest.DONE) {
-    // Check if the request was successful
-    if (request.status === 200) {
-      // Alert the response text
-      alert(request.responseText);
-    } else {
-      // Handle errors
-      handleError(request.status);
-    }
-  }
+  fetch('test.html')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(data => alert(data))
+    .catch(error => handleError(error.message));
 }
 
 // Function to handle errors
-function handleError(status) {
-  let errorMessage = 'An error occurred: ';
-  switch (status) {
-    case 404:
-      errorMessage += 'File not found (404).';
-      break;
-    case 500:
-      errorMessage += 'Server error (500).';
-      break;
-    default:
-      errorMessage += `Unexpected status: ${status}.`;
-  }
-  alert(errorMessage);
+function handleError(error) {
+  alert(`An error occurred: ${error}`);
 }
 
 async function logJSONData() {
