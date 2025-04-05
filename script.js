@@ -42,7 +42,6 @@ async function logJSONData() {
     // Fetch data from a sample API endpoint
     const response = await fetch('https://jsonplaceholder.typicode.com/todos/2');
     const jsonData = await response.json(); // Parse the JSON data
-    console.log(jsonData); // Log the JSON data to the console
   } catch (error) {
     handleError(error.message); // Handle any errors that occur during fetch
   }
