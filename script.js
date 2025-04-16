@@ -28,7 +28,6 @@ function fetchData(url) {
     .catch(error => handleError(error.message)); // Handle any errors that occur during fetch
 }
 
-// Function to handle errors
 // Logs the error message to the console and shows an alert
 function handleError(error) {
   console.error(`An error occurred: ${error}`);
